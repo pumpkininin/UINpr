@@ -63,12 +63,13 @@ public class ChatGUI extends javax.swing.JFrame {
                 userInfoLbl.setText(activeUser.getName());
                 userInfoLbl.setFont(new Font("Verdana", Font.PLAIN, 25));
                 
-                userInfoPanel.setBackground(Color.white);
-                userInfoPanel.add(userInfoLbl);
-                infoPanel.add(userInfoPanel);
+//                userInfoPanel.setBackground(Color.white);
+//                userInfoPanel.add(userInfoLbl);
+                infoPanel.add(userInfoLbl);
                 
                 receivedMessLbl.setText(activeUser.getName() + ": " + activeUser.getMessage());
                 receivedMessLbl.setFont(new Font("Verdana", Font.PLAIN, 15));
+                
                 chatContentPanel.setBackground(Color.white);
                 chatContentPanel.add(receivedMessLbl);
                 chatPanel.add(chatContentPanel);
