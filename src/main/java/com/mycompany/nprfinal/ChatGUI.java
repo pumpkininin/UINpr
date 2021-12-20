@@ -11,7 +11,10 @@ import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.List;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -44,40 +47,40 @@ public class ChatGUI extends javax.swing.JFrame {
     public ChatGUI() {
         initComponents();
         activeUserList.setModel(model);
-        model.addElement(new User("All", "heyyyy"));
-        model.addElement(new User("Khac Hieu", "Hi! How are you?"));
-        model.addElement(new User("Thanh Huyen", "Xin chao"));
-        model.addElement(new User("Thanh Tung", "Eiii"));
-        model.addElement(new User("User 4", "Alooooo"));
-        model.addElement(new User("User 5", "Aluuuuuuuuu"));
-
-        activeUserList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-
-                User activeUser = activeUserList.getSelectedValue();
-
-                String activeUsers = String.valueOf((activeUserList.getModel().getSize()) - 1);
-                countLbl.setText(activeUsers);
-                
-                userInfoLbl.setText(activeUser.getName());
-                userInfoLbl.setFont(new Font("Verdana", Font.PLAIN, 25));
-                
-//                userInfoPanel.setBackground(Color.white);
-//                userInfoPanel.add(userInfoLbl);
-                infoPanel.add(userInfoLbl);
-                
-                receivedMessLbl.setText(activeUser.getName() + ": " + activeUser.getMessage());
-                receivedMessLbl.setFont(new Font("Verdana", Font.PLAIN, 15));
-                
-                chatContentPanel.setBackground(Color.white);
-                chatContentPanel.add(receivedMessLbl);
-                chatPanel.add(chatContentPanel);
-                
-//                cardLayout.show(chatPanel,CHAT_CONTENT_PANEL);
-                
-
+        ArrayList<User> users = new ArrayList<>();
+        users.add(new User("All", "heyyyy"));
+        users.add(new User("KhacHieu", "Hi! How are you?"));
+        users.add(new User("ThanhHuyen", "Xin chao"));
+        users.add(new User("ThanhTung", "Eiii"));
+        users.add(new User("User4", "Alooooo"));
+        users.add(new User("User5", "Aluuuuuuuuu"));
+        cardLayout = (CardLayout) chatPanel.getLayout();
+        HashMap<String, JPanel> listPanel = new HashMap<>();
+        for(User u : users){
+            model.addElement(u);
+            JPanel newPanel = new JPanel();
+            JLabel newLabel = new JLabel();
+            newLabel.setText(u.getName());
+            newPanel.add(newLabel);
+            newPanel.setName(u.getName());
+            listPanel.put(u.getName(), newPanel);
+            chatPanel.add(u.getName(), newPanel);
+        }
+        activeUserList.getSelectionModel().addListSelectionListener(e ->  {
+            if (e.getValueIsAdjusting())
+            {
+                //System.out.println("Adjusting. Ignore this");
+                return;
             }
+                User activeUser = activeUserList.getSelectedValue();
+//                userInfoLbl.setText(activeUser.getName());
+//                userInfoLbl.setFont(new Font("Verdana", Font.PLAIN, 25));
+//                infoPanel.add(userInfoLbl);
+//                receivedMessLbl.setText(activeUser.getName() + ": " + activeUser.getMessage());
+//                receivedMessLbl.setFont(new Font("Verdana", Font.PLAIN, 15));
+                JPanel currentPanel = listPanel.get(activeUser.getName());
+
+                cardLayout.show(chatPanel, activeUser.getName());
         });
     }
 
@@ -153,7 +156,7 @@ public class ChatGUI extends javax.swing.JFrame {
             activePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(activePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(activeScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addComponent(activeScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(activePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(activePanelLayout.createSequentialGroup()
@@ -242,7 +245,7 @@ public class ChatGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(msgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, Short.MAX_VALUE)
+                        .addComponent(msgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 

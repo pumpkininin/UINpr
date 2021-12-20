@@ -49,7 +49,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chatPanel" min="-2" pref="556" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="msgPanel" pref="72" max="32767" attributes="0"/>
+                      <Component id="msgPanel" pref="77" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -65,7 +65,7 @@
           <Group type="103" groupAlignment="1" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="activeScroll" pref="259" max="32767" attributes="0"/>
+                  <Component id="activeScroll" pref="263" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
